@@ -3,10 +3,10 @@
 import { FiChevronRight } from 'react-icons/fi'
 
 import { useRouter } from 'next/navigation'
-import { User } from '@/types/user'
+import { UserOperation } from '@/types/user-operation'
 
 type Props = {
-  users: User[]
+  users: UserOperation[]
 }
 
 export default function UsersTable({
@@ -29,6 +29,18 @@ export default function UsersTable({
 
             <th className="p-4 text-left">
               Website
+            </th>
+
+            <th className="p-4 text-center">
+              Posts
+            </th>
+
+            <th className="p-4 text-center">
+              Completed
+            </th>
+
+            <th className="p-4 text-center">
+              Pending
             </th>
 
             <th className="p-4 text-right">
@@ -56,6 +68,18 @@ export default function UsersTable({
 
               <td className="p-4 text-blue-600">
                 {user.website}
+              </td>
+
+              <td className="p-4 text-center">
+                {user.totalPosts}
+              </td>
+
+              <td className="p-4 text-center text-green-600">
+                {user.completedTodos}
+              </td>
+
+              <td className="p-4 text-center text-orange-500">
+                {user.pendingTodos}
               </td>
 
               <td className="p-4">

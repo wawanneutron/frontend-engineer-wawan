@@ -3,7 +3,7 @@ import axios from "axios";
 import { User } from "@/types/user";
 
 const api = axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com",
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
 });
 
 export async function fetchUsers(): Promise<User[]> {

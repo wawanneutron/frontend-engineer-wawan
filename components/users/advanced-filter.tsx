@@ -1,4 +1,4 @@
-import type { FilterValue } from "@/types/filter";
+import type { FilterValue } from '@/types/filter'
 import { FiChevronDown, FiFilter } from 'react-icons/fi'
 
 type Props = {
@@ -6,16 +6,13 @@ type Props = {
   onChange: (value: FilterValue) => void
 }
 
-export default function AdvancedFilter({
-  value,
-  onChange,
-}: Props) {
+export default function AdvancedFilter({ value, onChange }: Props) {
   return (
     <div className="group relative">
       <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
         <FiFilter className="h-4 w-4 text-slate-400 transition-colors group-hover:text-indigo-500" />
       </div>
-      
+
       <select
         value={value}
         onChange={(e) => onChange(e.target.value as FilterValue)}

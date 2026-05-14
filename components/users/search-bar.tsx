@@ -5,10 +5,7 @@ type Props = {
   onChange: (value: string) => void
 }
 
-export default function SearchBar({
-  value,
-  onChange,
-}: Props) {
+export default function SearchBar({ value, onChange }: Props) {
   return (
     <div className="relative">
       <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">

@@ -1,9 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchTodos } from "@/services/api";
+import { useQuery } from '@tanstack/react-query'
+import { fetchTodos } from '@/services/api'
 
 export function useTodos() {
   return useQuery({
-    queryKey: ["todos"],
+    queryKey: ['todos'],
     queryFn: fetchTodos,
-  });
+  })
 }

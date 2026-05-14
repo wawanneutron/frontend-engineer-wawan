@@ -4,9 +4,7 @@ type Props = {
   message: string
 }
 
-export default function EmptyState({
-  message,
-}: Props) {
+export default function EmptyState({ message }: Props) {
   return (
     <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center shadow-sm">
       <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-slate-400">

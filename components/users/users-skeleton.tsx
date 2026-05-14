@@ -8,7 +8,10 @@ export default function UsersSkeleton() {
           <Skeleton className="h-4 w-full bg-slate-200/60" />
         </div>
         {Array.from({ length: 5 }).map((_, index) => (
-          <div key={index} className="flex items-center justify-between border-b border-slate-100 p-4 last:border-0">
+          <div
+            key={index}
+            className="flex items-center justify-between border-b border-slate-100 p-4 last:border-0"
+          >
             <Skeleton className="h-5 w-48 bg-slate-200/60" />
             <Skeleton className="h-5 w-48 bg-slate-200/60" />
             <Skeleton className="h-5 w-32 bg-slate-200/60" />
@@ -24,7 +27,10 @@ export default function UsersSkeleton() {
 
       <div className="space-y-4 md:hidden">
         {Array.from({ length: 5 }).map((_, index) => (
-          <div key={`mobile-${index}`} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <div
+            key={`mobile-${index}`}
+            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+          >
             <div className="flex justify-between">
               <div>
                 <Skeleton className="h-6 w-40 bg-slate-200/60" />

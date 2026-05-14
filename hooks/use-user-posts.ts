@@ -10,6 +10,6 @@ export function useUserPosts(userId: number) {
       return posts.filter((post) => post.userId === userId)
     },
 
-    enabled: !!userId
+    enabled: !!userId,
   })
 }

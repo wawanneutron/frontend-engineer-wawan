@@ -5,6 +5,6 @@ export function useUser(id: number) {
   return useQuery({
     queryKey: ['user', id],
     queryFn: () => fetchUserById(id),
-    enabled: !!id
+    enabled: !!id,
   })
 }

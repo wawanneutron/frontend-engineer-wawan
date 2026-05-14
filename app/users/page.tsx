@@ -117,7 +117,7 @@ export default function UsersPage() {
 
       <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900">
             Users Management
           </h1>
           <p className="mt-2 text-sm text-slate-500">

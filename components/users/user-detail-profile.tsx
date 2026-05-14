@@ -20,7 +20,7 @@ export default function UserDetailProfile({ user, isError, onRetry }: Props) {
       ) : user ? (
         <>
           <div className="border-b border-slate-200 bg-slate-50/50 p-6 md:p-8">
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900">
               {user.name}
             </h1>
             <p className="mt-2 flex items-center text-slate-500">
@@ -110,7 +110,9 @@ export default function UserDetailProfile({ user, isError, onRetry }: Props) {
                   </div>
 
                   <div className="flex items-center justify-between rounded-lg bg-slate-50 p-3">
-                    <span className="text-xs font-medium text-slate-500">Geo Location</span>
+                    <span className="text-xs font-medium text-slate-500">
+                      Geo Location
+                    </span>
                     <a
                       href={`https://maps.google.com/?q=${user.address.geo.lat},${user.address.geo.lng}`}
                       target="_blank"

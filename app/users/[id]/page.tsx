@@ -16,9 +16,24 @@ export default function UserDetailPage() {
 
   const id = Number(params.id)
 
-  const { data: user, isLoading: isLoadingUser, isError: isErrorUser, refetch: refetchUser } = useUser(id)
-  const { data: posts = [], isLoading: isLoadingPosts, isError: isErrorPosts, refetch: refetchPosts } = useUserPosts(id)
-  const { data: todos = [], isLoading: isLoadingTodos, isError: isErrorTodos, refetch: refetchTodos } = useUserTodos(id)
+  const {
+    data: user,
+    isLoading: isLoadingUser,
+    isError: isErrorUser,
+    refetch: refetchUser,
+  } = useUser(id)
+  const {
+    data: posts = [],
+    isLoading: isLoadingPosts,
+    isError: isErrorPosts,
+    refetch: refetchPosts,
+  } = useUserPosts(id)
+  const {
+    data: todos = [],
+    isLoading: isLoadingTodos,
+    isError: isErrorTodos,
+    refetch: refetchTodos,
+  } = useUserTodos(id)
 
   const userPosts = posts.filter((post) => post.userId === user?.id)
 
@@ -27,7 +42,7 @@ export default function UserDetailPage() {
   if (isLoadingUser || isLoadingPosts || isLoadingTodos) return <PageLoader />
 
   return (
-    <main className="mx-auto max-w-7xl space-y-8 p-4 md:p-8">
+    <>
       <div>
         <Link
           href="/users"
@@ -37,18 +52,28 @@ export default function UserDetailPage() {
         </Link>
       </div>
 
-      <UserDetailProfile user={user} isError={isErrorUser} onRetry={refetchUser} />
+      <UserDetailProfile
+        user={user}
+        isError={isErrorUser}
+        onRetry={refetchUser}
+      />
 
       <div className="grid gap-6 lg:grid-cols-2">
-        {
-          user?.id && (
-            <>
-              <UserPosts posts={userPosts} isError={isErrorPosts} onRetry={refetchPosts} />
-              <UserTodos todos={userTodos} isError={isErrorTodos} onRetry={refetchTodos} />
-            </>
-          )
-        }
+        {user?.id && (
+          <>
+            <UserPosts
+              posts={userPosts}
+              isError={isErrorPosts}
+              onRetry={refetchPosts}
+            />
+            <UserTodos
+              todos={userTodos}
+              isError={isErrorTodos}
+              onRetry={refetchTodos}
+            />
+          </>
+        )}
       </div>
-    </main>
+    </>
   )
 }

@@ -92,13 +92,7 @@ export default function UsersPage() {
     return usersWithOperations
   }, [usersWithOperations, filter])
 
-  if (isLoading) {
-    return (
-      <div className="p-6">
-        <UsersSkeleton />
-      </div>
-    )
-  }
+  if (isLoading) return <UsersSkeleton />
 
   if (isError) {
     return (
@@ -115,7 +109,7 @@ export default function UsersPage() {
   }
 
   return (
-    <main className="mx-auto max-w-7xl space-y-8 p-4 md:p-8">
+    <>
       <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-slate-900">
@@ -147,6 +141,6 @@ export default function UsersPage() {
           <MobileUserCards users={filteredOperationUsers} />
         </>
       )}
-    </main>
+    </>
   )
 }

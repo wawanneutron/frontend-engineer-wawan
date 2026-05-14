@@ -12,9 +12,9 @@ export default function Home() {
         <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
           Frontend Engineer Test
         </h1>
-        
+
         <p className="mx-auto max-w-md text-base text-slate-500 sm:text-lg">
-          A minimalist dashboard to manage users, view recent posts, and track completed tasks.
+          Manage users, view recent posts, and track completed tasks.
         </p>
 
         <div className="pt-4">

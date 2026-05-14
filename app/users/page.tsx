@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react'
 
-import EmptyState from '@/components/users/empty-state'
+import EmptyState from '@/components/ui/empty-state'
 import SearchBar from '@/components/users/search-bar'
 import SortSelect from '@/components/users/sort-select'
 import UsersTable from '@/components/users/users-table'
@@ -136,7 +136,10 @@ export default function UsersPage() {
       </div>
 
       {!filteredOperationUsers.length ? (
-        <EmptyState message="No users found matching your search or filters." />
+        <EmptyState
+          title="No users found"
+          description="No users found matching your search or filters."
+        />
       ) : (
         <>
           <div className="hidden md:block">

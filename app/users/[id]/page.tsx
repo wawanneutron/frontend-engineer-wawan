@@ -1,89 +1,16 @@
-'use client'
+import { Metadata } from 'next'
+import { generateUserMetadata } from '@/lib/metadata/user-metadata'
+import UserDetailClient from './user-detail-client'
 
-import Link from 'next/link'
-import { useParams } from 'next/navigation'
+type Props = {
+  params: Promise<{ id: number }>
+}
 
-import { useUser } from '@/hooks/detail-user'
-import { useUserPosts } from '@/hooks/use-user-posts'
-import { useUserTodos } from '@/hooks/use-user-todos'
-import UserPosts from '@/components/users/user-posts'
-import UserTodos from '@/components/users/user-todos'
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const resolvedParams = await params
+  return generateUserMetadata({ id: resolvedParams.id })
+}
 
-export default function UserDetailPage() {
-  const params = useParams()
-
-  const id = Number(params.id)
-
-  const { data: user, isLoading, isError } = useUser(id)
-  const { data: posts = [] } = useUserPosts(id)
-  const { data: todos = [] } = useUserTodos(id)
-
-  const userPosts = posts.filter((post) => post.userId === user?.id)
-
-  const userTodos = todos.filter((todo) => todo.userId === user?.id)
-
-  if (isLoading) {
-    return <div className="p-6">Loading user...</div>
-  }
-
-  if (isError) {
-    return <div className="p-6 text-red-500">Failed to load user</div>
-  }
-
-  if (!user?.id) {
-    return <div className="p-6">User not found</div>
-  }
-
-  return (
-    <main className="space-y-6 p-6">
-      <Link href="/users" className="inline-block text-blue-600">
-        ← Back to list
-      </Link>
-
-      <div className="rounded-xl border p-6 shadow-sm">
-        <h1 className="mb-6 text-3xl font-bold">{user.name}</h1>
-
-        <div className="space-y-3">
-          <p>
-            <span className="font-semibold">Username:</span> {user.username}
-          </p>
-
-          <p>
-            <span className="font-semibold">Email:</span> {user.email}
-          </p>
-
-          <p>
-            <span className="font-semibold">Phone:</span> {user.phone}
-          </p>
-
-          <p>
-            <span className="font-semibold">Website:</span> {user.website}
-          </p>
-        </div>
-
-        <div className="mt-8">
-          <h2 className="mb-2 text-xl font-semibold">Company</h2>
-
-          <p>{user.company.name}</p>
-
-          <p className="text-gray-500">{user.company.catchPhrase}</p>
-        </div>
-
-        <div className="mt-8">
-          <h2 className="mb-2 text-xl font-semibold">Address</h2>
-
-          <p>{user.address.street}</p>
-          <p>{user.address.suite}</p>
-          <p>{user.address.city}</p>
-          <p>{user.address.zipcode}</p>
-        </div>
-      </div>
-
-      <div className="grid gap-6 lg:grid-cols-2">
-        <UserPosts posts={userPosts} />
-
-        <UserTodos todos={userTodos} />
-      </div>
-    </main>
-  )
+export default async function UserDetailPage() {
+  return <UserDetailClient />
 }

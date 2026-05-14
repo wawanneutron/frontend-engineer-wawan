@@ -7,8 +7,9 @@ import SearchBar from '@/components/users/search-bar'
 import SortSelect from '@/components/users/sort-select'
 import UsersTable from '@/components/users/users-table'
 import AdvancedFilter from '@/components/users/advanced-filter'
+import MobileUserCards from '@/components/users/mobile-user-cards'
+import UsersSkeleton from '@/components/users/users-skeleton'
 import type { FilterValue } from "@/types/filter";
-
 import { useUsers } from '@/hooks/use-users'
 import { usePosts } from '@/hooks/use-posts'
 import { useTodos } from '@/hooks/use-todos'
@@ -81,15 +82,21 @@ export default function UsersPage() {
   if (isLoading) {
     return (
       <div className="p-6">
-        Loading users...
+        <UsersSkeleton />
       </div>
     )
   }
 
   if (isError) {
     return (
-      <div className="p-6 text-red-500">
-        Failed to load users
+      <div className="rounded-xl border border-dashed p-10 text-center">
+        <h2 className="text-lg font-semibold">
+          No users found
+        </h2>
+
+        <p className="mt-2 text-sm text-gray-500">
+          Try adjusting your filters or search
+        </p>
       </div>
     )
   }
@@ -122,7 +129,13 @@ export default function UsersPage() {
       {!filteredOperationUsers.length ? (
         <EmptyState message="No users found" />
       ) : (
-        <UsersTable users={filteredOperationUsers} />
+        <>
+          <div className='hidden md:block'>
+            <UsersTable users={filteredOperationUsers} />
+          </div>
+
+          <MobileUserCards users={filteredOperationUsers} />
+        </>
       )}
     </main>
   )

@@ -9,88 +9,71 @@ type Props = {
   users: UserOperation[]
 }
 
-export default function UsersTable({
-  users,
-}: Props) {
+export default function UsersTable({ users }: Props) {
   const router = useRouter()
 
   return (
-    <div className="overflow-x-auto rounded-xl border">
+    <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
       <table className="w-full border-collapse">
-        <thead className="bg-gray-100">
+        <thead className="border-b border-slate-200 bg-slate-50/80 backdrop-blur-sm">
           <tr>
-            <th className="p-4 text-left">
+            <th className="p-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
               Name
             </th>
-
-            <th className="p-4 text-left">
+            <th className="p-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
               Email
             </th>
-
-            <th className="p-4 text-left">
+            <th className="p-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
               Website
             </th>
-
-            <th className="p-4 text-center">
+            <th className="p-4 text-center text-xs font-semibold uppercase tracking-wider text-slate-500">
               Posts
             </th>
-
-            <th className="p-4 text-center">
+            <th className="p-4 text-center text-xs font-semibold uppercase tracking-wider text-slate-500">
               Completed
             </th>
-
-            <th className="p-4 text-center">
+            <th className="p-4 text-center text-xs font-semibold uppercase tracking-wider text-slate-500">
               Pending
             </th>
-
-            <th className="p-4 text-right">
+            <th className="p-4 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">
               Action
             </th>
           </tr>
         </thead>
 
-        <tbody>
+        <tbody className="divide-y divide-slate-200/60">
           {users.map((user) => (
             <tr
               key={user.id}
-              onClick={() =>
-                router.push(`/users/${user.id}`)
-              }
-              className="group cursor-pointer border-t transition-all duration-200 hover:bg-gray-50 focus:outline-none focus:ring-2"
+              onClick={() => router.push(`/users/${user.id}`)}
+              className="group cursor-pointer transition-colors duration-200 hover:bg-slate-50/80 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
             >
-              <td className="p-4 font-medium">
-                {user.name}
-              </td>
-
-              <td className="p-4">
-                {user.email}
-              </td>
-
-              <td className="p-4 text-blue-600">
+              <td className="p-4 font-medium text-slate-900">{user.name}</td>
+              <td className="p-4 text-sm text-slate-600">{user.email}</td>
+              <td className="p-4 text-sm text-indigo-600 hover:text-indigo-700">
                 {user.website}
               </td>
-
               <td className="p-4 text-center">
-                {user.totalPosts}
+                <span className="inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-slate-100 px-2 text-xs font-medium text-slate-700">
+                  {user.totalPosts}
+                </span>
               </td>
-
-              <td className="p-4 text-center text-green-600">
-                {user.completedTodos}
+              <td className="p-4 text-center">
+                <span className="inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-emerald-50 px-2 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20">
+                  {user.completedTodos}
+                </span>
               </td>
-
-              <td className="p-4 text-center text-orange-500">
-                {user.pendingTodos}
+              <td className="p-4 text-center">
+                <span className="inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-amber-50 px-2 text-xs font-medium text-amber-700 ring-1 ring-inset ring-amber-600/20">
+                  {user.pendingTodos}
+                </span>
               </td>
-
               <td className="p-4">
-                <div className="flex items-center justify-end gap-2 text-sm text-gray-500 transition group-hover:text-black">
-                  <span>
-                    View Details
-                  </span>
-
+                <div className="flex items-center justify-end gap-1.5 text-sm font-medium text-slate-400 transition-colors group-hover:text-indigo-600">
+                  <span>View Details</span>
                   <FiChevronRight
-                    size={18}
-                    className="transition group-hover:translate-x-1"
+                    size={16}
+                    className="transition-transform group-hover:translate-x-0.5"
                   />
                 </div>
               </td>

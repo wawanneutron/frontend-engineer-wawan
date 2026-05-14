@@ -9,15 +9,34 @@ import UsersTable from '@/components/users/users-table'
 import AdvancedFilter from '@/components/users/advanced-filter'
 import MobileUserCards from '@/components/users/mobile-user-cards'
 import UsersSkeleton from '@/components/users/users-skeleton'
-import type { FilterValue } from "@/types/filter";
+import ErrorState from '@/components/ui/error-state'
+import type { FilterValue } from '@/types/filter'
 import { useUsers } from '@/hooks/use-users'
 import { usePosts } from '@/hooks/use-posts'
 import { useTodos } from '@/hooks/use-todos'
 
 export default function UsersPage() {
-  const { data: users = [], isLoading, isError } = useUsers()
-  const { data: posts = [] } = usePosts()
-  const { data: todos = [] } = useTodos()
+  const {
+    data: users = [],
+    isLoading: isLoadingUsers,
+    isError: isErrorUsers,
+    refetch: refetchUsers,
+  } = useUsers()
+  const {
+    data: posts = [],
+    isLoading: isLoadingPosts,
+    isError: isErrorPosts,
+    refetch: refetchPosts,
+  } = usePosts()
+  const {
+    data: todos = [],
+    isLoading: isLoadingTodos,
+    isError: isErrorTodos,
+    refetch: refetchTodos,
+  } = useTodos()
+
+  const isLoading = isLoadingUsers || isLoadingPosts || isLoadingTodos
+  const isError = isErrorUsers || isErrorPosts || isErrorTodos
 
   const [search, setSearch] = useState('')
   const [sort, setSort] = useState('asc')
@@ -44,36 +63,30 @@ export default function UsersPage() {
 
   const usersWithOperations = useMemo(() => {
     return sortedUsers.map((user) => {
-        const userPosts = posts.filter((post) => post.userId === user.id)
+      const userPosts = posts.filter((post) => post.userId === user.id)
 
-        const userTodos = todos.filter((todo) => todo.userId === user.id)
+      const userTodos = todos.filter((todo) => todo.userId === user.id)
 
-        const completedTodos = userTodos.filter((todo) => todo.completed)
+      const completedTodos = userTodos.filter((todo) => todo.completed)
 
-        const pendingTodos = userTodos.filter((todo) => !todo.completed)
+      const pendingTodos = userTodos.filter((todo) => !todo.completed)
 
-        return {
-          ...user,
-          totalPosts: userPosts.length,
-          completedTodos: completedTodos.length,
-          pendingTodos: pendingTodos.length,
-        }
+      return {
+        ...user,
+        totalPosts: userPosts.length,
+        completedTodos: completedTodos.length,
+        pendingTodos: pendingTodos.length,
+      }
     })
   }, [sortedUsers, posts, todos])
 
   const filteredOperationUsers = useMemo(() => {
     if (filter === 'high-completed') {
-      return usersWithOperations.filter(
-        (user) =>
-          user.completedTodos >= 10
-      )
+      return usersWithOperations.filter((user) => user.completedTodos >= 10)
     }
 
     if (filter === 'high-pending') {
-      return usersWithOperations.filter(
-        (user) =>
-          user.pendingTodos >= 10
-      )
+      return usersWithOperations.filter((user) => user.pendingTodos >= 10)
     }
 
     return usersWithOperations
@@ -89,48 +102,45 @@ export default function UsersPage() {
 
   if (isError) {
     return (
-      <div className="rounded-xl border border-dashed p-10 text-center">
-        <h2 className="text-lg font-semibold">
-          No users found
-        </h2>
-
-        <p className="mt-2 text-sm text-gray-500">
-          Try adjusting your filters or search
-        </p>
+      <div className="py-12">
+        <ErrorState
+          onRetry={() => {
+            if (isErrorUsers) refetchUsers()
+            if (isErrorPosts) refetchPosts()
+            if (isErrorTodos) refetchTodos()
+          }}
+        />
       </div>
     )
   }
 
   return (
-    <main className="space-y-6 p-6">
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <h1 className="text-3xl font-bold">
-          Users
-        </h1>
+    <main className="mx-auto max-w-7xl space-y-8 p-4 md:p-8">
+      <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+            Users Management
+          </h1>
+          <p className="mt-2 text-sm text-slate-500">
+            View and manage users, posts, and todos.
+          </p>
+        </div>
 
-        <div className="flex flex-col gap-3 md:flex-row">
-          <SearchBar
-            value={search}
-            onChange={setSearch}
-          />
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <SearchBar value={search} onChange={setSearch} />
 
-          <SortSelect
-            value={sort}
-            onChange={setSort}
-          />
-
-          <AdvancedFilter
-            value={filter}
-            onChange={setFilter}
-          />
+          <div className="flex gap-3">
+            <SortSelect value={sort} onChange={setSort} />
+            <AdvancedFilter value={filter} onChange={setFilter} />
+          </div>
         </div>
       </div>
 
       {!filteredOperationUsers.length ? (
-        <EmptyState message="No users found" />
+        <EmptyState message="No users found matching your search or filters." />
       ) : (
         <>
-          <div className='hidden md:block'>
+          <div className="hidden md:block">
             <UsersTable users={filteredOperationUsers} />
           </div>
 

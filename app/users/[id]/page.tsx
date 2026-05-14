@@ -8,81 +8,46 @@ import { useUserPosts } from '@/hooks/use-user-posts'
 import { useUserTodos } from '@/hooks/use-user-todos'
 import UserPosts from '@/components/users/user-posts'
 import UserTodos from '@/components/users/user-todos'
+import UserDetailProfile from '@/components/users/user-detail-profile'
+import PageLoader from '@/components/ui/page-loader'
 
 export default function UserDetailPage() {
   const params = useParams()
 
   const id = Number(params.id)
 
-  const { data: user, isLoading, isError } = useUser(id)
-  const { data: posts = [] } = useUserPosts(id)
-  const { data: todos = [] } = useUserTodos(id)
+  const { data: user, isLoading: isLoadingUser, isError: isErrorUser, refetch: refetchUser } = useUser(id)
+  const { data: posts = [], isLoading: isLoadingPosts, isError: isErrorPosts, refetch: refetchPosts } = useUserPosts(id)
+  const { data: todos = [], isLoading: isLoadingTodos, isError: isErrorTodos, refetch: refetchTodos } = useUserTodos(id)
 
   const userPosts = posts.filter((post) => post.userId === user?.id)
 
   const userTodos = todos.filter((todo) => todo.userId === user?.id)
 
-  if (isLoading) {
-    return <div className="p-6">Loading user...</div>
-  }
-
-  if (isError) {
-    return <div className="p-6 text-red-500">Failed to load user</div>
-  }
-
-  if (!user?.id) {
-    return <div className="p-6">User not found</div>
-  }
+  if (isLoadingUser || isLoadingPosts || isLoadingTodos) return <PageLoader />
 
   return (
-    <main className="space-y-6 p-6">
-      <Link href="/users" className="inline-block text-blue-600">
-        ← Back to list
-      </Link>
-
-      <div className="rounded-xl border p-6 shadow-sm">
-        <h1 className="mb-6 text-3xl font-bold">{user.name}</h1>
-
-        <div className="space-y-3">
-          <p>
-            <span className="font-semibold">Username:</span> {user.username}
-          </p>
-
-          <p>
-            <span className="font-semibold">Email:</span> {user.email}
-          </p>
-
-          <p>
-            <span className="font-semibold">Phone:</span> {user.phone}
-          </p>
-
-          <p>
-            <span className="font-semibold">Website:</span> {user.website}
-          </p>
-        </div>
-
-        <div className="mt-8">
-          <h2 className="mb-2 text-xl font-semibold">Company</h2>
-
-          <p>{user.company.name}</p>
-
-          <p className="text-gray-500">{user.company.catchPhrase}</p>
-        </div>
-
-        <div className="mt-8">
-          <h2 className="mb-2 text-xl font-semibold">Address</h2>
-
-          <p>{user.address.street}</p>
-          <p>{user.address.suite}</p>
-          <p>{user.address.city}</p>
-          <p>{user.address.zipcode}</p>
-        </div>
+    <main className="mx-auto max-w-7xl space-y-8 p-4 md:p-8">
+      <div>
+        <Link
+          href="/users"
+          className="inline-flex items-center text-sm font-medium text-slate-500 transition-colors hover:text-indigo-600"
+        >
+          <span className="mr-2">&larr;</span> Back to users
+        </Link>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        <UserPosts posts={userPosts} />
+      <UserDetailProfile user={user} isError={isErrorUser} onRetry={refetchUser} />
 
-        <UserTodos todos={userTodos} />
+      <div className="grid gap-6 lg:grid-cols-2">
+        {
+          user?.id && (
+            <>
+              <UserPosts posts={userPosts} isError={isErrorPosts} onRetry={refetchPosts} />
+              <UserTodos todos={userTodos} isError={isErrorTodos} onRetry={refetchTodos} />
+            </>
+          )
+        }
       </div>
     </main>
   )

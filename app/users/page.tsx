@@ -22,12 +22,14 @@ export default function UsersPage() {
     isError: isErrorUsers,
     refetch: refetchUsers,
   } = useUsers()
+
   const {
     data: posts = [],
     isLoading: isLoadingPosts,
     isError: isErrorPosts,
     refetch: refetchPosts,
   } = usePosts()
+  
   const {
     data: todos = [],
     isLoading: isLoadingTodos,

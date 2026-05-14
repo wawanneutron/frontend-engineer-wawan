@@ -14,6 +14,7 @@ import type { FilterValue } from '@/types/filter'
 import { useUsers } from '@/hooks/use-users'
 import { usePosts } from '@/hooks/use-posts'
 import { useTodos } from '@/hooks/use-todos'
+import RouteBack from '@/components/ui/route-back'
 
 export default function UsersPage() {
   const {
@@ -29,7 +30,7 @@ export default function UsersPage() {
     isError: isErrorPosts,
     refetch: refetchPosts,
   } = usePosts()
-  
+
   const {
     data: todos = [],
     isLoading: isLoadingTodos,
@@ -112,6 +113,8 @@ export default function UsersPage() {
 
   return (
     <>
+      <RouteBack href="/" label="Back to home" />
+
       <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-slate-900">

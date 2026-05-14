@@ -10,6 +10,7 @@ import UserTodos from '@/components/users/user-todos'
 import UserDetailProfile from '@/components/users/user-detail-profile'
 import PageLoader from '@/components/ui/page-loader'
 import { useParams } from 'next/navigation'
+import RouteBack from '@/components/ui/route-back'
 
 export default function UserDetailClient() {
   const params = useParams()
@@ -21,14 +22,14 @@ export default function UserDetailClient() {
     isError: isErrorUser,
     refetch: refetchUser,
   } = useUser(id)
-  
+
   const {
     data: posts = [],
     isLoading: isLoadingPosts,
     isError: isErrorPosts,
     refetch: refetchPosts,
   } = useUserPosts(id)
-  
+
   const {
     data: todos = [],
     isLoading: isLoadingTodos,
@@ -40,15 +41,7 @@ export default function UserDetailClient() {
 
   return (
     <>
-      <div>
-        <Link
-          href="/users"
-          className="inline-flex items-center text-sm font-medium text-slate-500 transition-colors hover:text-indigo-600"
-        >
-          <FiArrowLeft className="mr-2 h-4 w-4" />
-          Back to users
-        </Link>
-      </div>
+      <RouteBack href="/users" label="Back to users" />
 
       <UserDetailProfile
         user={user}

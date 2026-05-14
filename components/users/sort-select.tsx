@@ -13,7 +13,7 @@ export default function SortSelect({
       onChange={(e) =>
         onChange(e.target.value)
       }
-      className="rounded-lg border px-4 py-2"
+      className="rounded-lg border px-4 py-2 transition-all duration-200 focus:outline-none focus:ring-2"
     >
       <option value="asc">
         Name A-Z

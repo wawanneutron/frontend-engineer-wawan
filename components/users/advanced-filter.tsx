@@ -20,7 +20,7 @@ export default function AdvancedFilter({
           e.target.value as FilterValue
         )
       }
-      className="rounded-lg border px-4 py-2"
+     className="rounded-lg border px-4 py-2 transition-all duration-200 focus:outline-none focus:ring-2"
     >
       <option value="all">
         All Users

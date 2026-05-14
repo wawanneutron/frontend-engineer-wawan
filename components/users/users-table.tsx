@@ -56,7 +56,7 @@ export default function UsersTable({
               onClick={() =>
                 router.push(`/users/${user.id}`)
               }
-              className="group cursor-pointer border-t transition hover:bg-gray-50"
+              className="group cursor-pointer border-t transition-all duration-200 hover:bg-gray-50 focus:outline-none focus:ring-2"
             >
               <td className="p-4 font-medium">
                 {user.name}

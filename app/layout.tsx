@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} font-sans bg-gradient-to-br from-slate-50 to-slate-100 text-slate-900 antialiased min-h-screen`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} font-sans bg-linear-to-br from-slate-50 to-slate-100 text-slate-900 antialiased min-h-screen`}>
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>

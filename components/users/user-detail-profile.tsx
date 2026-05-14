@@ -96,7 +96,7 @@ export default function UserDetailProfile({ user, isError, onRetry }: Props) {
               <div className="mt-4 rounded-xl border border-slate-100 bg-white p-4 shadow-sm">
                 <div className="space-y-4 text-sm text-slate-600">
                   <div className="flex items-start gap-3 rounded-lg bg-slate-50 p-3">
-                    <div className="mt-0.5 flex-shrink-0 text-slate-400">
+                    <div className="mt-0.5 shrink-0 text-slate-400">
                       <FiMapPin className="h-4 w-4" />
                     </div>
                     <div>

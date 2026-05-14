@@ -34,7 +34,7 @@ export default function UserTodos({ todos, isError, onRetry }: Props) {
                 className="flex items-start justify-between gap-4 rounded-xl border border-slate-100 bg-slate-50 p-4 transition-all duration-200 hover:border-slate-200 hover:bg-white hover:shadow-sm"
               >
                 <div className="flex items-start gap-3">
-                  <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded border">
+                  <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border">
                     {todo.completed && (
                       <svg
                         className="h-3.5 w-3.5 text-emerald-600"
@@ -59,7 +59,7 @@ export default function UserTodos({ todos, isError, onRetry }: Props) {
                 </div>
 
                 <span
-                  className={`flex-shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold ring-1 ring-inset ${
+                  className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold ring-1 ring-inset ${
                     todo.completed
                       ? 'bg-emerald-50 text-emerald-700 ring-emerald-600/20'
                       : 'bg-amber-50 text-amber-700 ring-amber-600/20'
